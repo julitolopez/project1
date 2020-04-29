@@ -1,0 +1,23 @@
+{% extends "login_layout.html" %}
+
+{% block header %}
+  Welcome to My Book D.B.
+{% endblock %}
+
+{% block body %}
+  <h1 style="text-align:center;">Join us.</h1>
+
+  <form action="{{url_for('success')}}" method="post" id="register">
+  <div class="form-group">
+    <label for="username">User Name</label>
+    <input type="text" class="form-control rounded-input" id="username" name="name">
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control rounded-input" id="password" name="password">
+  </div>
+  </form>
+
+  <button type="submit" class="btn btn-info rounded-input" form="register" style="margin:5px;">Register</button>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "login_layout.html" %}
+
+{% block header %}
+  Welcome to My Book D.B.
+{% endblock %}
+
+{% block body %}
+<h1 style="text-align:center;">
+  See you soon.
+</h1>
+
+<p class="lead text-center">
+  Confirm by clicking the buttun below.
+</p>
+<hr>
+<div class="row justify-content-center">
+<a class="btn btn-info rounded-input" href="{{url_for('index')}}" role="button" style="margin:5px;">Logout</a>
+</div>
+
+
+{% endblock %}

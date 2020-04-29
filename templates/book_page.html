@@ -1,0 +1,46 @@
+{% extends "home_layout.html" %}
+
+{% block header %}
+<h1 style="text-align:center;">
+  {{ book.title}}
+</h1>
+<p class="lead text-center"><b>isbn:</b> {{ book.isbn}} | <b>Author:</b> {{ book.author}} | <b>Publication:</b> {{ book.year}}<br>
+<b>Goodreads rating:</b> {{ average_rating }} based on {{ work_ratings_count }} reviews.</p>
+<hr><p class="text-center"><a class="btn btn-info rounded-input" href="{{url_for('search')}}" role="button" style="margin:auto;">New Search</a></p>
+{% endblock %}
+
+{% block body %}
+  {% if session["user_id"] == accept_review[0] %}
+    <p class="lead text-center">Thanks for your feedback {{session["name"]}}!</p>
+  {% else %}
+  <form action="{{ url_for('add_review', isbn=book.isbn)}}" method="post" style="background-color: #e9ecef; padding:10px;border-radius:20px;margin-bottom:10px;">
+  <div class="form-group">
+    <label for="review">My review: </label>
+    <input type="text" class="form-control" id="review" name="review">
+  </div>
+  <div class="form-group">
+      <label for="score">My score:</label>
+      <select class="form-control rounded-input" id="score" name="score">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+  <button type="submit">Add review</button>
+  <button type="reset">Clear</button>
+  </form>
+  {% endif %}
+
+<ul class="list-group list-group-flush">
+  {% for review in reviews %}
+    <li class="list-group-item"><b>{{ review.name }}</b> wrote: {{review.review}} | score: {{review.score}} |
+    {% if review.id == session["user_id"] %}
+      <a href="{{ url_for('delete_review', isbn=book.isbn, review_id=review.review_id) }}">delete</a>
+    {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
